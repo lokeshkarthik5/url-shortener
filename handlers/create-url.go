@@ -20,7 +20,11 @@ func createUrl(w http.ResponseWriter, r *http.Request) {
 	}
 
 	type response struct {
-		id uuid.UUID `json:"id"`
+		id        uuid.UUID `json:"id"`
+		longUrl   string    `json:"long_url"`
+		short     string    `json:"short_url"`
+		createdAt string    `json:"created_at"`
+		updatedAt string    `json:"updated_at"`
 	}
 
 	decoder := json.NewDecoder(r.Body)
