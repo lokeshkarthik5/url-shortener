@@ -1,5 +1,7 @@
 echo "Creating tables on DB urls 🚀"
 
+chmod +x reset.sh
+
 set -e
 
 if [-z "$DB_URL"]; then
