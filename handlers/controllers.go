@@ -23,15 +23,15 @@ func HealthCheck(w http.ResponseWriter, r *http.Request) {
 
 func (c *Controllers) CreateUrl(w http.ResponseWriter, r *http.Request) {
 	type paramters struct {
-		url string `json:"url"`
+		Url string `json:"url"`
 	}
 
 	type response struct {
-		id        uuid.UUID `json:"id"`
-		longUrl   string    `json:"long_url"`
-		short     string    `json:"short_url"`
-		createdAt time.Time `json:"created_at"`
-		updatedAt time.Time `json:"updated_at"`
+		Id        uuid.UUID `json:"id"`
+		LongUrl   string    `json:"long_url"`
+		Short     string    `json:"short_url"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
 	}
 
 	decoder := json.NewDecoder(r.Body)
@@ -44,7 +44,7 @@ func (c *Controllers) CreateUrl(w http.ResponseWriter, r *http.Request) {
 	short := utils.GenerateShortUrls()
 
 	link, err := c.DB.CreateUrl(r.Context(), database.CreateUrlParams{
-		Longurl: params.url,
+		Longurl: params.Url,
 		Short:   short,
 	})
 	if err != nil {
@@ -53,11 +53,11 @@ func (c *Controllers) CreateUrl(w http.ResponseWriter, r *http.Request) {
 	}
 
 	res := response{
-		id:        link.ID,
-		longUrl:   link.Longurl,
-		short:     link.Short,
-		createdAt: link.Createdat,
-		updatedAt: link.Updatedat,
+		Id:        link.ID,
+		LongUrl:   link.Longurl,
+		Short:     link.Short,
+		CreatedAt: link.Createdat,
+		UpdatedAt: link.Updatedat,
 	}
 
 	respondWithJSON(w, http.StatusCreated, res)
@@ -82,12 +82,12 @@ func (c *Controllers) DeleteUrl(w http.ResponseWriter, r *http.Request) {
 
 func (c *Controllers) GetStats(w http.ResponseWriter, r *http.Request) {
 	type response struct {
-		id          uuid.UUID `json:"id"`
-		longUrl     string    `json:"long_url"`
-		short       string    `json:"short_url"`
-		createdAt   time.Time `json:"created_at"`
-		updatedAt   time.Time `json:"updated_at"`
-		accesscount int       `json:"access_count"`
+		Id          uuid.UUID `json:"id"`
+		LongUrl     string    `json:"long_url"`
+		Short       string    `json:"short_url"`
+		CreatedAt   time.Time `json:"created_at"`
+		UpdatedAt   time.Time `json:"updated_at"`
+		Accesscount int       `json:"access_count"`
 	}
 
 	urlId := r.PathValue("urlId")
@@ -101,12 +101,12 @@ func (c *Controllers) GetStats(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondWithJSON(w, http.StatusOK, response{
-		id:          url.ID,
-		longUrl:     url.Longurl,
-		short:       url.Short,
-		createdAt:   url.Createdat,
-		updatedAt:   url.Updatedat,
-		accesscount: url.Accesscount,
+		Id:          url.ID,
+		LongUrl:     url.Longurl,
+		Short:       url.Short,
+		CreatedAt:   url.Createdat,
+		UpdatedAt:   url.Updatedat,
+		Accesscount: url.Accesscount,
 	})
 
 }
@@ -114,11 +114,11 @@ func (c *Controllers) GetStats(w http.ResponseWriter, r *http.Request) {
 func (c *Controllers) GetUrl(w http.ResponseWriter, r *http.Request) {
 
 	type response struct {
-		id        uuid.UUID `json:"id"`
-		longUrl   string    `json:"long_url"`
-		short     string    `json:"short_url"`
-		createdAt time.Time `json:"created_at"`
-		updatedAt time.Time `json:"updated_at"`
+		Id        uuid.UUID `json:"id"`
+		LongUrl   string    `json:"long_url"`
+		Short     string    `json:"short_url"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
 	}
 
 	urlId := r.PathValue("urlId")
@@ -132,25 +132,25 @@ func (c *Controllers) GetUrl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	respondWithJSON(w, http.StatusOK, response{
-		id:        url.ID,
-		longUrl:   url.Longurl,
-		short:     url.Short,
-		createdAt: url.Createdat,
-		updatedAt: url.Updatedat,
+		Id:        url.ID,
+		LongUrl:   url.Longurl,
+		Short:     url.Short,
+		CreatedAt: url.Createdat,
+		UpdatedAt: url.Updatedat,
 	})
 }
 
 func (c *Controllers) UpdateUrl(w http.ResponseWriter, r *http.Request) {
 	type parameters struct {
-		longUrl string `json:"long_url"`
+		LongUrl string `json:"long_url"`
 	}
 
 	type response struct {
-		id        uuid.UUID `json:"id"`
-		longUrl   string    `json:"long_url"`
-		short     string    `json:"short_url"`
-		createdAt time.Time `json:"created_at"`
-		updatedAt time.Time `json:"updated_at"`
+		Id        uuid.UUID `json:"id"`
+		LongUrl   string    `json:"long_url"`
+		Short     string    `json:"short_url"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
 	}
 
 	urlId := r.PathValue("urlId")
@@ -166,7 +166,7 @@ func (c *Controllers) UpdateUrl(w http.ResponseWriter, r *http.Request) {
 	}
 
 	url, err := c.DB.UpdateUrl(r.Context(), database.UpdateUrlParams{
-		Longurl: params.longUrl,
+		Longurl: params.LongUrl,
 		Short:   urlId,
 	})
 	if err != nil {
@@ -175,11 +175,11 @@ func (c *Controllers) UpdateUrl(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondWithJSON(w, http.StatusAccepted, response{
-		id:        url.ID,
-		longUrl:   url.Longurl,
-		short:     url.Short,
-		createdAt: url.Createdat,
-		updatedAt: url.Updatedat,
+		Id:        url.ID,
+		LongUrl:   url.Longurl,
+		Short:     url.Short,
+		CreatedAt: url.Createdat,
+		UpdatedAt: url.Updatedat,
 	})
 
 }

@@ -1,6 +1,6 @@
 echo "Creating tables on DB urls 🚀"
 
-chmod +x reset.sh
+chmod +x reset_db.sh
 
 set -e
 
