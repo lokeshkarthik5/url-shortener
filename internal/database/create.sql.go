@@ -28,7 +28,7 @@ RETURNING id,createdAt,updatedAt,longUrl,short
 
 type CreateUrlParams struct {
 	Longurl string
-	Short   string
+	Short   sql.NullString
 }
 
 type CreateUrlRow struct {
@@ -36,7 +36,7 @@ type CreateUrlRow struct {
 	Createdat time.Time
 	Updatedat time.Time
 	Longurl   string
-	Short     string
+	Short     sql.NullString
 }
 
 func (q *Queries) CreateUrl(ctx context.Context, arg CreateUrlParams) (CreateUrlRow, error) {
