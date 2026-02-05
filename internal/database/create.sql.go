@@ -7,7 +7,6 @@ package database
 
 import (
 	"context"
-	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
@@ -28,7 +27,7 @@ RETURNING id,createdAt,updatedAt,longUrl,short
 
 type CreateUrlParams struct {
 	Longurl string
-	Short   sql.NullString
+	Short   string
 }
 
 type CreateUrlRow struct {
@@ -36,7 +35,7 @@ type CreateUrlRow struct {
 	Createdat time.Time
 	Updatedat time.Time
 	Longurl   string
-	Short     sql.NullString
+	Short     string
 }
 
 func (q *Queries) CreateUrl(ctx context.Context, arg CreateUrlParams) (CreateUrlRow, error) {

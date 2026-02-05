@@ -5,7 +5,6 @@
 package database
 
 import (
-	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
@@ -14,8 +13,8 @@ import (
 type Link struct {
 	ID          uuid.UUID
 	Longurl     string
-	Short       sql.NullString
+	Short       string
 	Createdat   time.Time
 	Updatedat   time.Time
-	Accesscount interface{}
+	Accesscount int
 }

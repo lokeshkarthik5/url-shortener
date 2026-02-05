@@ -7,7 +7,6 @@ package database
 
 import (
 	"context"
-	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
@@ -22,10 +21,10 @@ type GetUrlRow struct {
 	Createdat time.Time
 	Updatedat time.Time
 	Longurl   string
-	Short     sql.NullString
+	Short     string
 }
 
-func (q *Queries) GetUrl(ctx context.Context, short sql.NullString) (GetUrlRow, error) {
+func (q *Queries) GetUrl(ctx context.Context, short string) (GetUrlRow, error) {
 	row := q.db.QueryRowContext(ctx, getUrl, short)
 	var i GetUrlRow
 	err := row.Scan(

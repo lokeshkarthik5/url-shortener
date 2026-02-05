@@ -1,21 +1,20 @@
 package utils
 
 import (
-	"math/rand"
+	"math/rand/v2"
 	"strings"
-	"time"
 )
 
 func GenerateShortUrls() string {
-	rand.Seed(time.Now().Unix())
+	rand.IntN(100000)
 	var sb strings.Builder
 
 	for i := 0; i < 4; i++ {
-		char := 'A' + rune(rand.Intn(26))
+		char := 'A' + rune(rand.IntN(26))
 		sb.WriteRune(char)
 	}
 	for i := 0; i < 4; i++ {
-		digit := '0' + rune(rand.Intn(10))
+		digit := '0' + rune(rand.IntN(10))
 		sb.WriteRune(digit)
 	}
 

@@ -10,6 +10,7 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	controllers "github.com/lokeshkarthik5/url-shortner/handlers"
+	utils "github.com/lokeshkarthik5/url-shortner/utils"
 	"github.com/lokeshkarthik5/url-shortner/internal/database"
 )
 
@@ -42,10 +43,10 @@ func main() {
 	mux.HandleFunc("GET /api/health", controllers.HealthCheck)
 
 	mux.HandleFunc("POST /api/create-url", c.handlers.CreateUrl)
-	mux.HandleFunc("GET /api/get-url/{urlId}")
+	mux.HandleFunc("GET /api/get-url/{urlId}",c.middlewareMetrics(c.handlers.CreateUrl))
 	mux.HandleFunc("PUT /api/update-url/{urlId}")
-	mux.HandleFunc("DELETE /api/delete-url/{urlId}")
-	mux.HandleFunc("GET /api/get-stats/{urlId}")
+	mux.HandleFunc("DELETE /api/delete-url/{urlId}",c.handlers.DeleteUrl)
+	mux.HandleFunc("GET /api/get-stats/{urlId}",c.handlers.GetStats)
 
 	srv := &http.Server{
 		Addr:    ":" + "3001",

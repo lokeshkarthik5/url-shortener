@@ -7,14 +7,13 @@ package database
 
 import (
 	"context"
-	"database/sql"
 )
 
 const getCounts = `-- name: GetCounts :one
 SELECT id, longurl, short, createdat, updatedat, accesscount FROM links WHERE short = $1
 `
 
-func (q *Queries) GetCounts(ctx context.Context, short sql.NullString) (Link, error) {
+func (q *Queries) GetCounts(ctx context.Context, short string) (Link, error) {
 	row := q.db.QueryRowContext(ctx, getCounts, short)
 	var i Link
 	err := row.Scan(

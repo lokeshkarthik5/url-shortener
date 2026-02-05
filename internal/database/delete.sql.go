@@ -7,14 +7,13 @@ package database
 
 import (
 	"context"
-	"database/sql"
 )
 
 const deleteUrl = `-- name: DeleteUrl :exec
 DELETE FROM links WHERE short = $1
 `
 
-func (q *Queries) DeleteUrl(ctx context.Context, short sql.NullString) error {
+func (q *Queries) DeleteUrl(ctx context.Context, short string) error {
 	_, err := q.db.ExecContext(ctx, deleteUrl, short)
 	return err
 }
